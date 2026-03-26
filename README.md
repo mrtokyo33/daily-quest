@@ -25,3 +25,4 @@ main.go
 - **godotenv**
 - **gin-gonic**
 - **Package validator**
+- **zap logger**
