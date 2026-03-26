@@ -20,3 +20,8 @@ main.go
 .gitignore
 ```
 
+## Packages:
+
+- **godotenv**
+- **gin-gonic**
+- **Package validator**
