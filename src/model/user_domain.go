@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 )
 
+// funções que são "públicas"
 type UserDomainInterface interface {
 	GetEmail() string
 	GetPassword() string
@@ -23,6 +24,7 @@ func NewUserDomain(
 	}
 }
 
+// userDomain é privado, para não conseguirmos acessar UserDomain.password em qualquer arquivo
 type userDomain struct {
 	email    string
 	password string
@@ -43,6 +45,7 @@ func (ud *userDomain) GetAge() int8 {
 	return ud.age
 }
 
+// futuramente irei implementar bcrypt
 func (ud *userDomain) EncryptPassword() {
 	hash := md5.New()
 	defer hash.Reset()

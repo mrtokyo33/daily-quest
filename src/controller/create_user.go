@@ -30,7 +30,10 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
+	// cria o domain
 	domain := model.NewUserDomain(userRequest.Email, userRequest.Password, userRequest.Name, userRequest.Age)
+
+	// instancia service
 	service := service.NewUserDomainService()
 
 	if err := service.CreateUser(domain); err != nil {

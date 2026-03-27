@@ -20,9 +20,27 @@ main.go
 .gitignore
 ```
 
+### Fluxos:
+
+**Como funciona o fluxo**
+quando chega uma requisição HTTP:
+
+```
+HTTP Request -> Controller -> Service -> Domain (Model)
+
+1. O controller recebe o JSON
+2. Converte em struct (UserRequest)
+3. Cria um domain object
+4. Chama o service
+5. O service aplica regra de negócio
+6. (futuramente) salva no banco
+```
+
+
 ## Packages:
 
 - **godotenv**
 - **gin-gonic**
 - **Package validator**
 - **zap logger**
+
