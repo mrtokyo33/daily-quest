@@ -1,15 +1,19 @@
 package controller
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mrtokyo33/daily-quest/src/configuration/logger"
 	"github.com/mrtokyo33/daily-quest/src/configuration/validation"
-	"github.com/mrtokyo33/daily-quest/src/model/request"
-	"github.com/mrtokyo33/daily-quest/src/model/response"
+	"github.com/mrtokyo33/daily-quest/src/controller/model/request"
+	"github.com/mrtokyo33/daily-quest/src/model"
+	"github.com/mrtokyo33/daily-quest/src/model/service"
 	"go.uber.org/zap"
+)
+
+var (
+	UserDomainInterface model.UserDomainInterface
 )
 
 func CreateUser(c *gin.Context) {
@@ -26,13 +30,14 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(userRequest)
-	response := response.UserResponse{
-		ID:    "test",
-		Email: userRequest.Email,
-		Name:  userRequest.Name,
-		Age:   userRequest.Age,
+	domain := model.NewUserDomain(userRequest.Email, userRequest.Password, userRequest.Name, userRequest.Age)
+	service := service.NewUserDomainService()
+
+	if err := service.CreateUser(domain); err != nil {
+		c.JSON(err.Code, err)
+		return
 	}
 
-	c.JSON(http.StatusOK, response)
+	logger.Info("User created successfully!", zap.String("journey", "createUser"))
+	c.String(http.StatusOK, "")
 }
