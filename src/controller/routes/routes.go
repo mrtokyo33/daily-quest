@@ -5,10 +5,11 @@ import (
 	"github.com/mrtokyo33/daily-quest/src/controller"
 )
 
-func InitRoutes(r *gin.RouterGroup) {
-	r.GET("/findUserById/:userId", controller.FindUserById)
-	r.GET("/findUserByEmail/:userEmail", controller.FindUserByEmail)
-	r.POST("/createUser", controller.CreateUser)
-	r.PUT("/updateUser/:userId", controller.UpdateUser)
-	r.DELETE("/deleteUser/:userId", controller.DeleteUser)
+func InitRoutes(r *gin.RouterGroup, userController controller.UserControllerInterface) {
+
+	r.GET("/findUserById/:userId", userController.FindUserByID)
+	r.GET("/findUserByEmail/:userEmail", userController.FindUserByEmail)
+	r.POST("/createUser", userController.CreateUser)
+	r.PUT("/updateUser/:userId", userController.UpdateUser)
+	r.DELETE("/deleteUser/:userId", userController.DeleteUser)
 }
